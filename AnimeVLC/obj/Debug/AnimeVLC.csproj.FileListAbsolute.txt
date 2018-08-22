@@ -1,0 +1,8 @@
+C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\bin\Debug\AnimeVLC.exe.config
+C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\bin\Debug\AnimeVLC.exe
+C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\bin\Debug\AnimeVLC.pdb
+C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.csprojResolveAssemblyReference.cache
+C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.MainForm.resources
+C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.csproj.GenerateResource.Cache
+C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.exe
+C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.pdb
