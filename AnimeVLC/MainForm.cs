@@ -8,8 +8,10 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using HtmlAgilityPack;
 
 namespace AnimeVLC
 {
@@ -18,6 +20,7 @@ namespace AnimeVLC
 	/// </summary>
 	public partial class MainForm : Form
 	{
+		private Parser parser=null;
 		private Dictionary<string,string> myDict;
 		public MainForm()
 		{
@@ -32,7 +35,39 @@ namespace AnimeVLC
 		}
 		void PictureBox1Click(object sender, EventArgs e)
 		{
-			MessageBox.Show(comboBox1.SelectedValue.ToString());
+			if (comboBox2.SelectedText.Equals("")){
+				
+				if (comboBox2.Text.Contains("sibnet"))
+				    {
+				    	string result = parser.getVideoUrl("http://video.sibnet.ru/video"+comboBox2.SelectedValue.ToString());
+				    	Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe",result);
+				    	//MessageBox.Show(result);
+				    }
+				else
+				{
+					MessageBox.Show(comboBox2.Text);
+				}
+				
+				//MessageBox.Show(comboBox2.Text);
+			    }
+			else
+			{
+				//MessageBox.Show(comboBox2.SelectedText);
+				if (comboBox2.SelectedText.Contains("sibnet"))
+				    {
+				    	string result = parser.getVideoUrl("http://video.sibnet.ru/video"+comboBox2.SelectedValue.ToString());
+				    	Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe",result);
+				    	//MessageBox.Show(result);
+				    }
+				else
+				{
+					MessageBox.Show(comboBox2.Text);
+				}
+			}
+			
+			
+			//MessageBox.Show("http://video.sibnet.ru/video"+comboBox2.SelectedValue.ToString());
+			
 		}
 		void MainFormLoad(object sender, EventArgs e)
 		{
@@ -47,6 +82,21 @@ namespace AnimeVLC
 			comboBox1.DataSource = new BindingSource(myDict,null);
 			comboBox1.DisplayMember = "Key";
 			comboBox1.ValueMember = "Value";
+			
+			
+			
+		}
+		void Button1Click(object sender, EventArgs e)
+		{
+			//пробуем получить все серии
+			parser = new Parser();
+			//parser.getUrl(comboBox1.SelectedValue.ToString());
+			List <Anime> result = parser.getUrl(comboBox1.SelectedValue.ToString());
+			BindingSource bsource = new BindingSource();
+			bsource.DataSource = result;
+			comboBox2.DataSource = bsource.DataSource;
+			comboBox2.DisplayMember = "FullName";
+			comboBox2.ValueMember = "Url";
 			
 		}
 	}

@@ -40,5 +40,10 @@ namespace AnimeVLC
 			this.Player = Player;
 			this.Url = Url;
 		}
+		
+		public String FullName
+		{
+			get {return this.SeriesNumber + " - " + this.Player;}
+		}
 	}
 }

@@ -6,3 +6,6 @@ C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\obj\Debug\Ani
 C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.csproj.GenerateResource.Cache
 C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.exe
 C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.pdb
+C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\bin\Debug\HtmlAgilityPack.dll
+C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\lagutov\Documents\SharpDevelop Projects\AnimeVLC\AnimeVLC\bin\Debug\HtmlAgilityPack.xml
