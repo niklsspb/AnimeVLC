@@ -61,7 +61,7 @@ namespace AnimeVLC
 		
 		public void fillDictionary()
 		{
-			String[] lines = System.IO.File.ReadAllLines("C:\\Users\\lagutov\\Documents\\SharpDevelop Projects\\AnimeVLC\\AnimeVLC\\AnimeList.txt");
+			String[] lines = System.IO.File.ReadAllLines("AnimeList.txt");
 			foreach (string line in lines)
 			{
 				string[] splitted = line.Split(',');
