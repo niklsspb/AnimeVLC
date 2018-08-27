@@ -93,6 +93,11 @@ namespace AnimeVLC
                 parser = new FanNaruto();
                 result = parser.getUrl(comboBox1.SelectedValue.ToString());
             }
+            if (comboBox1.SelectedValue.ToString().Contains("animespirit"))
+            {
+                parser = new animespirit();
+                result = parser.getUrl(comboBox1.SelectedValue.ToString());
+            }
             setDataSourceComboBox(result, comboBox2);
 
         }
