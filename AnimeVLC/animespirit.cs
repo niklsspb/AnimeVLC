@@ -33,13 +33,7 @@ namespace AnimeVLC
             
             var node_list = htmlDoc.DocumentNode.SelectSingleNode("//span[contains(., 'Sibnet')]");
             var n = node_list.ParentNode.GetAttributeValue("onclick", null);
-            //FileStream sw = new FileStream("FileStream.html", FileMode.Create);
             htmlDoc.Save("test.html", Encoding.UTF8);
-            //htmlDoc.Save("test1251.html", Encoding.GetEncoding(1251));
-            //htmlDoc.Save("testANSI.html", Encoding.Default);
-
-
-            string ds = "";
             List<Anime> l = new List<Anime>();
             return l;
         }

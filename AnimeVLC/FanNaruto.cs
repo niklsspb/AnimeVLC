@@ -26,7 +26,12 @@ namespace AnimeVLC
             var html = url;
             HtmlWeb web = new HtmlWeb();
             var htmlDoc = web.Load(html);
+            htmlDoc.Save("FanNaruto.html", Encoding.UTF8);
             var node = htmlDoc.DocumentNode.SelectSingleNode("//*[@id=\"MT_overroll\"]/div[2]");
+            if (node == null)
+            {
+                node = htmlDoc.DocumentNode.SelectSingleNode("//*[@id=\"tabs5\"]/div[2]");
+            }
             var n = node.SelectNodes("i");
             String key = "";
             String value = "";

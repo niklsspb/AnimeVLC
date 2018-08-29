@@ -22,3 +22,14 @@ C:\Users\prof0\Documents\Git\Repos\AnimeVLC\AnimeVLC\bin\Debug\AnimeVLC.pdb
 C:\Users\prof0\Documents\Git\Repos\AnimeVLC\AnimeVLC\bin\Debug\HtmlAgilityPack.pdb
 C:\Users\prof0\Documents\Git\Repos\AnimeVLC\AnimeVLC\bin\Debug\HtmlAgilityPack.xml
 C:\Users\prof0\Documents\Git\Repos\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.csproj.CopyComplete
+C:\dev\projects\c#\AnimeVLC\AnimeVLC\bin\Debug\AnimeVLC.exe.config
+C:\dev\projects\c#\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.exe
+C:\dev\projects\c#\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.pdb
+C:\dev\projects\c#\AnimeVLC\AnimeVLC\bin\Debug\AnimeList.txt
+C:\dev\projects\c#\AnimeVLC\AnimeVLC\bin\Debug\AnimeVLC.exe
+C:\dev\projects\c#\AnimeVLC\AnimeVLC\bin\Debug\AnimeVLC.pdb
+C:\dev\projects\c#\AnimeVLC\AnimeVLC\bin\Debug\HtmlAgilityPack.pdb
+C:\dev\projects\c#\AnimeVLC\AnimeVLC\bin\Debug\HtmlAgilityPack.xml
+C:\dev\projects\c#\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.csprojResolveAssemblyReference.cache
+C:\dev\projects\c#\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.MainForm.resources
+C:\dev\projects\c#\AnimeVLC\AnimeVLC\obj\Debug\AnimeVLC.csproj.GenerateResource.Cache
