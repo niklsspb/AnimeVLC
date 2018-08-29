@@ -32,7 +32,6 @@ namespace AnimeVLC
             InitializeComponent();
 
             //
-            // TODO: Add constructor code after the InitializeComponent() call.
             //
         }
         void PictureBox1Click(object sender, EventArgs e)
@@ -42,8 +41,8 @@ namespace AnimeVLC
 
                 if (comboBox2.Text.Contains("sibnet"))
                 {
-                    string result = parser.getVideoUrl("http://video.sibnet.ru/video" + comboBox2.SelectedValue.ToString());
-                    Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", result);
+                    string url_video = parser.getVideoUrl("http://video.sibnet.ru/video" + comboBox2.SelectedValue.ToString());
+                    Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", url_video);
                     //MessageBox.Show(result);
                 }
                 else
@@ -57,8 +56,8 @@ namespace AnimeVLC
                 //MessageBox.Show(comboBox2.SelectedText);
                 if (comboBox2.SelectedText.Contains("sibnet"))
                 {
-                    string result = parser.getVideoUrl("http://video.sibnet.ru/video" + comboBox2.SelectedValue.ToString());
-                    Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", result);
+                    string url_video = parser.getVideoUrl("http://video.sibnet.ru/video" + comboBox2.SelectedValue.ToString());
+                    Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", url_video);
                 }
                 else
                 {
