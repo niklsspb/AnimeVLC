@@ -9,9 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Windows.Forms;
-using HtmlAgilityPack;
 
 namespace AnimeVLC
 {
@@ -36,14 +34,30 @@ namespace AnimeVLC
         }
         void PictureBox1Click(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Minimized;
             if (comboBox2.SelectedText.Equals(""))
             {
 
                 if (comboBox2.Text.Contains("sibnet"))
                 {
-                    string url_video = parser.getVideoUrl("http://video.sibnet.ru/video" + comboBox2.SelectedValue.ToString());
-                    Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", url_video);
-                    //MessageBox.Show(result);
+                    try
+                    {
+                        string url_video = parser.getVideoUrl("http://video.sibnet.ru/shell.php?videoid=" + comboBox2.SelectedValue.ToString());
+                        using (Process exeProcess = Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", url_video))
+                        {
+                            //this.WindowState = FormWindowState.Minimized;
+                            exeProcess.WaitForExit();
+                        }
+                        this.WindowState = FormWindowState.Normal;
+                        MessageBox.Show("Вы просмотрели серию?");
+                        //Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", url_video);
+                        //MessageBox.Show(result);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
+
                 }
                 else
                 {
@@ -56,8 +70,21 @@ namespace AnimeVLC
                 //MessageBox.Show(comboBox2.SelectedText);
                 if (comboBox2.SelectedText.Contains("sibnet"))
                 {
-                    string url_video = parser.getVideoUrl("http://video.sibnet.ru/video" + comboBox2.SelectedValue.ToString());
-                    Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", url_video);
+                    try
+                    {
+                        string url_video = parser.getVideoUrl("http://video.sibnet.ru/shell.php?videoid=" + comboBox2.SelectedValue.ToString());
+                        using (Process exeProcess = Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", url_video))
+                        {
+                            exeProcess.WaitForExit();
+                        }
+                        MessageBox.Show("Вы просмотрели серию?");
+                        //Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", url_video);
+                        //MessageBox.Show(result);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
                 }
                 else
                 {
@@ -78,7 +105,7 @@ namespace AnimeVLC
             //А нужно ли переопределять значения??? Скорее всего да, так как словарь private в классе Sites
             myDict = sites.getDictionary(myDict);
             //Заполняем значениями из словаря
-            setDataSourceComboBox(myDict, comboBox1);
+            SetDataSourceComboBox(myDict, comboBox1);
 
         }
 
@@ -97,18 +124,18 @@ namespace AnimeVLC
                 parser = new animespirit();
                 result = parser.getUrl(comboBox1.SelectedValue.ToString());
             }
-            setDataSourceComboBox(result, comboBox2);
+            SetDataSourceComboBox(result, comboBox2);
 
         }
 
-        void setDataSourceComboBox(Dictionary<string, string> result, ComboBox box)
+        void SetDataSourceComboBox(Dictionary<string, string> result, ComboBox box)
         {
             box.DataSource = new BindingSource(result, null);
             box.DisplayMember = "Key";
             box.ValueMember = "Value";
         }
 
-        void setDataSourceComboBox(List<Anime> result, ComboBox box)
+        void SetDataSourceComboBox(List<Anime> result, ComboBox box)
         {
             box.DataSource = new BindingSource(result, null);
             box.DisplayMember = "FullName";

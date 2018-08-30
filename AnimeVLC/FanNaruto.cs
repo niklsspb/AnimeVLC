@@ -27,7 +27,7 @@ namespace AnimeVLC
             string html = url;
             HtmlWeb web = new HtmlWeb();
             HtmlDocument htmlDocument = web.Load(html);
-            HtmlNodeCollection nodeCollection = checkXpath(htmlDocument, xpathList);
+            //HtmlNodeCollection nodeCollection = checkXpath(htmlDocument, xpathList);
 
             HtmlNode singleNode = htmlDocument.DocumentNode.SelectSingleNode("//*[@id=\"MT_overroll\"]/div[2]");
             /* TODO переделать процесс чтобы проверялось single node или node collection и возвращалось 
@@ -77,7 +77,34 @@ namespace AnimeVLC
         public string getVideoUrl(string url)
         {
             if (url.Contains("sibnet"))
-            {
+            {/*
+                System.Net.WebException
+  HResult=0x80131509
+  Сообщение = Запрос был прерван: Соединение было неожиданно закрыто.
+  Источник = System
+  Трассировка стека:
+   в System.Net.HttpWebRequest.GetResponse()
+   в HtmlAgilityPack.HtmlWeb.Get(Uri uri, String method, String path, HtmlDocument doc, IWebProxy proxy, ICredentials creds)
+   в HtmlAgilityPack.HtmlWeb.LoadUrl(Uri uri, String method, WebProxy proxy, NetworkCredential creds)
+   в HtmlAgilityPack.HtmlWeb.Load(Uri uri, String method)
+   в HtmlAgilityPack.HtmlWeb.Load(String url)
+   в AnimeVLC.FanNaruto.getVideoUrl(String url) в C:\Users\prof0\Documents\Git\Repos\AnimeVLC\AnimeVLC\FanNaruto.cs:строка 84
+   в AnimeVLC.MainForm.PictureBox1Click(Object sender, EventArgs e) в C:\Users\prof0\Documents\Git\Repos\AnimeVLC\AnimeVLC\MainForm.cs:строка 59
+   в System.Windows.Forms.Control.OnClick(EventArgs e)
+   в System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   в System.Windows.Forms.Control.WndProc(Message& m)
+   в System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+   в System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+   в System.Windows.Forms.NativeWindow.DebuggableCallback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+   в System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   в System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   в System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   в System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   в System.Windows.Forms.Application.Run(Form mainForm)
+   в AnimeVLC.Program.Main(String[] args) в C:\Users\prof0\Documents\Git\Repos\AnimeVLC\AnimeVLC\Program.cs:строка 27
+
+
+                */
                 var html = url;
                 HtmlWeb web = new HtmlWeb();
                 web.UserAgent = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36";
