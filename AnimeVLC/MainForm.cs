@@ -77,7 +77,6 @@ namespace AnimeVLC
                         {
                             exeProcess.WaitForExit();
                         }
-                        MessageBox.Show("Вы просмотрели серию?");
                         //Process.Start("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", url_video);
                         //MessageBox.Show(result);
                     }
@@ -140,6 +139,34 @@ namespace AnimeVLC
             box.DataSource = new BindingSource(result, null);
             box.DisplayMember = "FullName";
             box.ValueMember = "Url";
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+
+        {
+
+            KeyEventArgs e = new KeyEventArgs(keyData);
+
+            if (e.Control && e.KeyCode == Keys.G)
+
+            {
+                if (comboBox1.SelectedValue.ToString().Contains("fan-naruto"))
+                {
+                    parser = new FanNaruto();
+                    result = parser.getUrl(comboBox1.SelectedValue.ToString());
+                }
+                if (comboBox1.SelectedValue.ToString().Contains("animespirit"))
+                {
+                    parser = new animespirit();
+                    result = parser.getUrl(comboBox1.SelectedValue.ToString());
+                }
+                SetDataSourceComboBox(result, comboBox2);
+                return true; // handled
+
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+
         }
     }
 }

@@ -8,7 +8,7 @@ namespace AnimeVLC
 {
     public class FanNaruto : ParserInterface
     {
-        public List<string> xpathList = new List<string>() { "//*[@id=\"MT_overroll\"]/div[2]", "//*[@id=\"tabs5\"]/div[2]", "//span[contains(@class,\"ep3\")]" };
+        public List<string> xpathList = new List<string>() { "//*[@id=\"MT_overroll\"]/div[2]", "//*[@id=\"tabs5\"]/div[2]", "//*[@class =\"lips\"]" };
         public string url
         {
             get
@@ -27,12 +27,32 @@ namespace AnimeVLC
             string html = url;
             HtmlWeb web = new HtmlWeb();
             HtmlDocument htmlDocument = web.Load(html);
-            //HtmlNodeCollection nodeCollection = checkXpath(htmlDocument, xpathList);
-
-            HtmlNode singleNode = htmlDocument.DocumentNode.SelectSingleNode("//*[@id=\"MT_overroll\"]/div[2]");
+            List<Anime> animeItemsList = null;
+            String key = "";
+            String value = "";
+            String player = "";
+            
+            /*HtmlNodeCollection nodeCollectionTest = checkXpath(htmlDocument, xpathList);
+            //var check = nodeCollectionTest.LongCount();
+            if (nodeCollectionTest.LongCount()>1)
+            {
+                animeItemsList = new List<Anime>();
+                foreach (var node in nodeCollectionTest)
+                {
+                    if (node.GetAttributeValue("class", null) == "sub")
+                    {
+                        key = node.InnerText;
+                        value = node.GetAttributeValue("data-id", null);
+                        player = node.GetAttributeValue("data-p", null);
+                        Anime animeItems = new Anime(key, player, value);
+                        animeItemsList.Add(animeItems);
+                    }
+                }
+            }*/
+            //HtmlNode singleNode = htmlDocument.DocumentNode.SelectSingleNode("//*[@id=\"MT_overroll\"]/div[2]");
             /* TODO переделать процесс чтобы проверялось single node или node collection и возвращалось 
              * в зависимости от того что в итоге получено */
-            if (singleNode == null)
+            /*if (singleNode == null)
             {
                 singleNode = htmlDocument.DocumentNode.SelectSingleNode("//*[@id=\"tabs5\"]/div[2]");
                 if (singleNode == null)
@@ -41,27 +61,58 @@ namespace AnimeVLC
                     throw new ArgumentNullException("singleNode");
                 }
                               
-            }
-            HtmlNodeCollection nodeCollection = singleNode.SelectNodes("i");
-            String key = "";
-            String value = "";
-            String player = "";
-            List<Anime> animeItemsList = new List<Anime>();
-            foreach (var node in nodeCollection)
+            }*/
+            if (url.Contains("van_pis"))
             {
-                key = node.InnerText;
-                value = node.GetAttributeValue("data-id", null);
-                player = node.GetAttributeValue("data-p", null);
-                Anime animeItems = new Anime(key, player, value);
-                animeItemsList.Add(animeItems);
+                HtmlNode singleNode = checkXpath(htmlDocument, xpathList);
+                HtmlNodeCollection nodeCollection = singleNode.SelectNodes("i");
+                animeItemsList = new List<Anime>();
+                foreach (var node in nodeCollection)
+                {
+                        key = node.InnerText;
+                        value = node.GetAttributeValue("data-id", null);
+                        player = node.GetAttributeValue("data-p", null);
+                        Anime animeItems = new Anime(key, player, value);
+                        animeItemsList.Add(animeItems);
+                }
             }
-
+            else
+            {
+                HtmlNode singleNode = checkXpath(htmlDocument, xpathList);
+                HtmlNodeCollection nodeCollection = singleNode.SelectNodes("i[@class=\"sub\"]|span[@class=\"ep3\"]");
+                animeItemsList = new List<Anime>();
+                string SeriesName = null;
+                foreach (var node in nodeCollection)
+                {
+                    if (node.GetAttributeValue("class",null) == "ep3")
+                    {
+                        if (node.InnerText!="Русские субтитры")
+                            SeriesName = node.InnerText;
+                    }
+                    if (node.GetAttributeValue("class", null) == "sub")
+                    {
+                        if (node == null)
+                            throw new ArgumentNullException("node");
+                        key = SeriesName ?? node.InnerText;
+                        value = node.GetAttributeValue("data-id", null);
+                        player = node.GetAttributeValue("data-p", null);
+                        Anime animeItems = new Anime(key, player, value);
+                        animeItemsList.Add(animeItems);
+                        
+                    }
+                }
+            }
             return animeItemsList;
         }
-
-        public HtmlNodeCollection checkXpath (HtmlDocument htmlDocument, List<String> xpathList)
+       /*
+        public HtmlNodeCollection checkXpath(HtmlDocument htmlDocument, List<String> xpathList)
         {
             HtmlNodeCollection list = null;
+            if (htmlDocument == null)
+                throw new ArgumentNullException("htmlDocument");
+            if (xpathList == null)
+                throw new ArgumentNullException("xpathList");
+
             foreach (var xpath in xpathList)
             {
                 list = htmlDocument.DocumentNode.SelectNodes(xpath);
@@ -70,41 +121,34 @@ namespace AnimeVLC
                     break;
                 }
             }
-            
+
+            return list;
+        }*/
+
+        public HtmlNode checkXpath(HtmlDocument htmlDocument, List<String> xpathList)
+        {
+            HtmlNode list = null;
+            if (htmlDocument == null)
+                throw new ArgumentNullException("htmlDocument");
+            if (xpathList == null)
+                throw new ArgumentNullException("xpathList");
+
+            foreach (var xpath in xpathList)
+            {
+                list = htmlDocument.DocumentNode.SelectSingleNode(xpath);
+                if (list != null)
+                {
+                    break;
+                }
+            }
+
             return list;
         }
 
         public string getVideoUrl(string url)
         {
             if (url.Contains("sibnet"))
-            {/*
-                System.Net.WebException
-  HResult=0x80131509
-  Сообщение = Запрос был прерван: Соединение было неожиданно закрыто.
-  Источник = System
-  Трассировка стека:
-   в System.Net.HttpWebRequest.GetResponse()
-   в HtmlAgilityPack.HtmlWeb.Get(Uri uri, String method, String path, HtmlDocument doc, IWebProxy proxy, ICredentials creds)
-   в HtmlAgilityPack.HtmlWeb.LoadUrl(Uri uri, String method, WebProxy proxy, NetworkCredential creds)
-   в HtmlAgilityPack.HtmlWeb.Load(Uri uri, String method)
-   в HtmlAgilityPack.HtmlWeb.Load(String url)
-   в AnimeVLC.FanNaruto.getVideoUrl(String url) в C:\Users\prof0\Documents\Git\Repos\AnimeVLC\AnimeVLC\FanNaruto.cs:строка 84
-   в AnimeVLC.MainForm.PictureBox1Click(Object sender, EventArgs e) в C:\Users\prof0\Documents\Git\Repos\AnimeVLC\AnimeVLC\MainForm.cs:строка 59
-   в System.Windows.Forms.Control.OnClick(EventArgs e)
-   в System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
-   в System.Windows.Forms.Control.WndProc(Message& m)
-   в System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
-   в System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
-   в System.Windows.Forms.NativeWindow.DebuggableCallback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
-   в System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
-   в System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
-   в System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
-   в System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
-   в System.Windows.Forms.Application.Run(Form mainForm)
-   в AnimeVLC.Program.Main(String[] args) в C:\Users\prof0\Documents\Git\Repos\AnimeVLC\AnimeVLC\Program.cs:строка 27
-
-
-                */
+            {
                 var html = url;
                 HtmlWeb web = new HtmlWeb();
                 web.UserAgent = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36";
