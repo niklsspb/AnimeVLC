@@ -161,10 +161,11 @@ namespace AnimeVLC
                     int end_index_string_to_url_video = sourceCodeHtmlDocument.IndexOf(", type:") - 1;
                     path_to_source_video = sourceCodeHtmlDocument.Substring(start_index_string_to_url_video, end_index_string_to_url_video - start_index_string_to_url_video);
                     var prepared_link_to_get_final_link_video = "http://video.sibnet.ru" + path_to_source_video;
-                    HtmlWeb htmlWeb = new HtmlWeb();
-                    htmlWeb.UserAgent = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36";
-                    var htmlDocument_request_to_final_link = htmlWeb.Load(prepared_link_to_get_final_link_video);
-                    path_to_source_video = htmlWeb.ResponseUri.ToString();
+                    HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(prepared_link_to_get_final_link_video);
+                    req.Referer =  url;
+                    req.UserAgent ="Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36";
+                    HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                    path_to_source_video = resp.ResponseUri.ToString();
                 }
 
                 return path_to_source_video;
